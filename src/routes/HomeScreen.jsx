@@ -93,7 +93,7 @@ function HomeScreen() {
         }
       )
       const newUserState = await response.data.flag;
-      console.log("newUseStater: ", newUserState);
+      console.log("newUseStater type: ", typeof(newUserState));
 
       setIsUser(newUserState);
       setisUserFetching(false); // Reset fetching to false
@@ -109,7 +109,7 @@ function HomeScreen() {
   //       console.log('isUser: ', isUser);
   //       getIsUser();
   //       setCookie('isUser', `${isUser}`);
-  //       navigate("/signup");
+  //       navigate("/signUpForm");
   //   }
   // }, [isUser]);
   
