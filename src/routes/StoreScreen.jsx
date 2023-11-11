@@ -5,6 +5,7 @@ import store3 from '../assets/images/store3.png'
 import store4 from '../assets/images/store4.png'
 import styled from 'styled-components'
 import BottomTabLayout from './BottomTabLayout'
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   .storeScreenContainer {
@@ -27,6 +28,7 @@ const Container = styled.div`
     border-bottom: 1px solid #ccc;
     border-top: 1px solid #ccc;
     font-size: 25px;
+    box-sizing: border-box;
   }
 
   .pointTitle {
@@ -44,6 +46,7 @@ const Container = styled.div`
     justify-content: space-around;
     width: 100%;
     padding: 10px;
+    box-sizing: border-box;
   }
 
   .categoryButton {
@@ -56,7 +59,8 @@ const Container = styled.div`
     cursor: pointer;
   }
 
-  .active {
+  .categoryButton:active,
+  .categoryButton:focus {
     border: 2px solid black;
     border-radius: 17px;
     background-color: black;
@@ -68,6 +72,7 @@ const Container = styled.div`
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: flex-start;
+    box-sizing: border-box;
   }
 
   .imageSection div {
@@ -126,9 +131,11 @@ function StoreScreen() {
           <span>&nbsp;14,000p</span>
         </div>
         <div>
+        <Link to ="/product">
           <img src={store4} className="storeImage" alt="store4" />
           <br />
           <span>&nbsp;4,500p</span>
+        </Link>
         </div>
       </div>
     </div>

@@ -14,7 +14,7 @@ const NavigationBar = styled.nav`
   border-top: 1px solid #ccc;
   margin: 0;
   padding: 10px 0;
-  width: 390px;
+  width: 100%;
   bottom: 0;
   left: 0;
   height: 60px;

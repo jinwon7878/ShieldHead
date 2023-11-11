@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import instagram from "../assets/images/instagram.svg";
 import arrow from "../assets/images/arrow.svg";
+import { useNavigate, useLocation } from 'react-router-dom';
+import { getCookie } from "../cookie/cookie";
+import axios from "axios";
 
 const Container = styled.div`
   display: flex;
@@ -128,21 +131,50 @@ const Home = styled.div`
 `;
 
 function SolvedProblemScreen() {
-  const [totalPoints, setTotalPoints] = useState(1003);
-  const [score, setScore] = useState("1/3");
-  const [points, setPoints] = useState(3);
+  const [totalPoints, setTotalPoints] = useState(null);
 
-  const circleStatus = ["correct", "incorrect", "inactive"];
+  const location = useLocation();
+  const circleStatus = location.state; //ex [true false false]
+  let points = 0;
+  let score = 0;
+  circleStatus.map((b, i) => {
+    if (b) {points += 1;}
+  });
+  switch (points){
+    case 0:
+      score = "0";
+      break;
+    case 1:
+      score = "1/3";
+      break;
+    case 2:
+      score = "2/3";
+      break;
+    case 3:
+      score = "3/3";
+      break;
+    default:
+      break;
+  };
 
-  const getColor = (status) => {
-    switch (status) {
-      case "correct":
-        return "green";
-      case "incorrect":
-        return "red";
-      default:
-        return "#D9D9D9";
-    }
+  const getOriginPoints = async () => {
+    const userId = getCookie('userId');
+    const res = await axios.get(
+      "http://local:8080/users",
+      {id: userId}
+    )
+    const originPoints = await res.data.point;
+    let n = originPoints + points;
+    setTotalPoints(n);
+  }
+
+  useEffect(()=>{
+    getOriginPoints(); // get OriginPoints & set TotalPoints
+  }, []);
+
+  const getColor = (b) => {
+    if (b) {return "green";}
+    else {return "red";}
   };
 
   const IconButton = styled.img`
@@ -151,14 +183,29 @@ function SolvedProblemScreen() {
     height: ${(props) => props.height};
   `;
 
+  const setUserPoints = async () => {
+    const userId = getCookie('userId');
+    const res = await axios.get(
+      `http://local:8080/users/${userId}`,
+      {point: points}
+    )
+  }
+
+  const navigate = useNavigate();
+  const handleClickHome = async () => {
+    await setUserPoints();
+    navigate('/');
+  }
+
+
   return (
     <Container>
       <Top height="400px">
         <TotalPoint height="50px">Total Point : {totalPoints}</TotalPoint>
         <Score height="50px">Score : {score}</Score>
         <ProbTab height="50px">
-          {circleStatus.map((status, index) => (
-            <Circle key={index} color={getColor(status)} />
+          {circleStatus.map((b, index) => (
+            <Circle key={index} color={getColor(b)} />
           ))}
         </ProbTab>
         <Points height="50px">Points: {points}</Points>
@@ -185,7 +232,7 @@ function SolvedProblemScreen() {
           </Share>
           <Home>
             Home
-            <IconButton weidth="28px" height="28px" src={arrow} alt="Home" />
+            <IconButton onClick={handleClickHome} weidth="28px" height="28px" src={arrow} alt="Home" />
           </Home>
         </ShareHome>
       </Bottom>

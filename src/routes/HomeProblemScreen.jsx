@@ -1,5 +1,7 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 
 const Container = styled.div`
   display: flex;
@@ -102,26 +104,54 @@ const NextButton = styled.div`
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 function HomeProblemScreen() {
-  const [question, setQuestion] = useState(
-    "소화전 _m 이내에 주·정차가 금지되어 있다."
-  );
+  const [question, setQuestion] = useState(null);
+  const [answer, setAnswer] = useState(null);
+  const [items, setItems] = useState([]);
+
   const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedList, setSelectedList] = useState([]); // ex [true false true]
+
+  const navigate = useNavigate();
 
   const handleSelectOption = (option) => {
     setSelectedOption(option);
   };
+  
+  const getQuestion = async () => {
+    const response = await axios.get(
+      "http://localhost:8080/quiz",
+      {category: '교통'}
+    )
+    setQuestion(response.data.problem);
+    setAnswer(response.data.answer);
+    setItems(response.data.item);
+  }
 
   const OXCard = styled(Ocard)`
-    background-color: ${selectedOption === "O" ? "#bde0fe" : "white"};
+    background-color: ${selectedOption === 1 ? "#bde0fe" : "white"};
   `;
 
   const XXCard = styled(Xcard)`
-    background-color: ${selectedOption === "X" ? "#bde0fe" : "white"};
+    background-color: ${selectedOption === 2 ? "#bde0fe" : "white"};
   `;
 
   const handleNextClick = () => {
+    let plus;
+    if (selectedOption === answer) {
+      plus = true;
+    } else {plus = false;}
+    setSelectedList([...selectedList, plus]);
     console.log("Next button clicked, selected option:", selectedOption);
+    getQuestion();
   };
+
+  useEffect(()=>{
+    if (selectedList.length === 3) {
+      navigate('solvedProblem', {
+        state: { ...selectedList }
+      });
+    }
+  }, [selectedList]);
 
   return (
     <Container>
@@ -130,10 +160,10 @@ function HomeProblemScreen() {
         <QuestionCard height="250px">{question}</QuestionCard>
       </InnerFlexBox>
       <OXcardframe height="160px">
-        <OXCard height="100px" onClick={() => handleSelectOption("O")}>
+        <OXCard height="100px" onClick={() => handleSelectOption(1)}>
           O
         </OXCard>
-        <XXCard height="100px" onClick={() => handleSelectOption("X")}>
+        <XXCard height="100px" onClick={() => handleSelectOption(2)}>
           X
         </XXCard>
       </OXcardframe>

@@ -86,7 +86,7 @@ function HomeScreen() {
       setisUserFetching(true); // Set fetching to true
 
       const response = await axios.get(
-        "https://localhost:8080/login",
+        "http://localhost:8080/login",
         {
           headers: {
             "Authorization": `Bearer ${accessToken}`,
@@ -116,6 +116,10 @@ function HomeScreen() {
     }
     checkUserStatus();
   }, [isUser, navigate]);
+
+  const handleNavigateProblem = () => {
+    navigate('/homeProblem');
+  }
   
   return (
     <>
@@ -130,7 +134,7 @@ function HomeScreen() {
       </NewsBox>
 
       <InnerFlexBox height="150px">
-        <Button variant="contained">문제 풀러가기</Button>
+        <Button variant="contained" onClick={handleNavigateProblem}>문제 풀러가기</Button>
       </InnerFlexBox>
 
       <MenuBox height="100px">홈 스토어 사람</MenuBox>

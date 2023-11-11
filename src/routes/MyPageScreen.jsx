@@ -8,6 +8,7 @@ import styled from 'styled-components'
 import BottomTabLayout from './BottomTabLayout'
 
 const Container = styled.div`
+  padding: 0px;
   .myPageContainer {
     display: flex;
     flex-direction: column;
@@ -31,7 +32,7 @@ const Container = styled.div`
   }
 
   .userInfo {
-    margin: 5px 0;
+    margin: 5px 0px;
   }
 
   .userName {
@@ -55,6 +56,7 @@ const Container = styled.div`
   .menuSection {
     width: 100%;
     padding: 20px;
+    box-sizing: border-box;
   }
 
   .menuButton {

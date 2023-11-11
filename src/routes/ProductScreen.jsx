@@ -23,6 +23,7 @@ const Container = styled.div`
       border-top: 1px solid #ccc;
       font-size: 25px;
       margin-bottom: 0;
+      box-sizing: border-box;
   }
   .pointTitle {
       width: 50%;
@@ -35,6 +36,7 @@ const Container = styled.div`
       margin-top: 50px;
       margin-bottom: 0;
       /* background-color: #ccc; */
+      box-sizing: border-box;
   }
   .productImage{
       width: 300px;
@@ -56,6 +58,7 @@ const Container = styled.div`
   .buttonSection {
       width: 100%;
       align-items: center;
+      box-sizing: border-box;
   }
   .productButton {
       padding: 15px 30px;
