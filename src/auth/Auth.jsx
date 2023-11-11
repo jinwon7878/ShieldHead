@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { getCookie, setCookie } from "../cookie/cookie";
  
-function Auth() {
+function Auth({setIsLoggedIn}) {
     const navigate = useNavigate();
     const PARAMS = new URL(document.location).searchParams;
     const KAKAO_CODE = PARAMS.get("code");
@@ -37,21 +37,20 @@ function Auth() {
             );
             accessToken = await response.data.access_token;
             console.log("accessToken:", accessToken);
- 
+
+            setCookie('accessToken', `${accessToken}`);
             setAccessTokenFetching(false); // Reset fetching to false
+            setIsLoggedIn(true);
+            navigate("/");
         } catch (error) {
             console.error("Error:", error);
             setAccessTokenFetching(false); // Reset fetching even in case of error
         }
     };
  
- 
     useEffect(() => {
         if (KAKAO_CODE && !accessToken) {
-            console.log('cookie accessToken: ',accessToken);
             getAccessToken();
-            setCookie('accessToken', `${accessToken}`);
-            navigate("/");
         }
     }, [KAKAO_CODE]);
  

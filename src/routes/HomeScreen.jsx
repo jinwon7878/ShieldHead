@@ -73,7 +73,7 @@ const MenuBox = styled.div`
 function HomeScreen() {
   const navigate = useNavigate();
   const accessToken = getCookie('accessToken');
-  const [isUser, setIsUser] = useState(false);
+  let isUser = getCookie('isUser');
   const [isUserFetching, setisUserFetching] = useState(false);
 
   async function getIsUser() {
@@ -92,10 +92,11 @@ function HomeScreen() {
           },
         }
       )
-      const newUserState = await response.data.flag;
-      console.log("newUseStater type: ", typeof(newUserState));
+      isUser = await response.data.flag;
+      console.log("fetch isUser type: ", typeof(isUser));
+      console.log("fetch isUser: ", isUser);
 
-      setIsUser(newUserState);
+      setCookie('isUser', `${isUser}`);
       setisUserFetching(false); // Reset fetching to false
     }
     catch(error) {
@@ -104,17 +105,21 @@ function HomeScreen() {
     }
   }
 
-  // useEffect(() => {
-  //   if (!isUser) {
-  //       console.log('isUser: ', isUser);
-  //       getIsUser();
-  //       setCookie('isUser', `${isUser}`);
-  //       navigate("/signUpForm");
-  //   }
-  // }, [isUser]);
+  useEffect(() => {
+    async function checkUserStatus() {
+      await getIsUser();
+      // Use navigate based on the isUser value
+      if (!isUser) {
+        navigate('/signUpForm');
+      }
+    }
+    checkUserStatus();
+  }, [isUser, navigate]);
   
   return (
-    <Container>
+    <>
+    {isUser && (
+      <Container>
       <InnerFlexBox height="211px">ShieldHead</InnerFlexBox>
       <NewsBox height="393px">
         <NewsTextBox height="43px">뉴스</NewsTextBox>
@@ -129,6 +134,8 @@ function HomeScreen() {
 
       <MenuBox height="100px">홈 스토어 사람</MenuBox>
     </Container>
+    )}
+    </>
   )
 }
 

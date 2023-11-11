@@ -18,15 +18,17 @@ function App() {
     async function init() {
       const token = await getCookie('accessToken');
       setIsLoggedIn(!!token);
+      console.log('app useEffect, token: ', `${token}`);
     }
     init();
   }, []);
+  
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={isLoggedIn ? <HomeScreen /> : <SignInScreen />}></Route>
-        <Route path="/auth" element={<Auth />}></Route>
+        <Route path="/auth" element={<Auth setIsLoggedIn={setIsLoggedIn}/>}></Route>
         <Route path="/signUpForm" element={<SignUpFormScreen />}></Route>
 
         <Route path="/solvedProblem" element={<SolvedProblemScreen />}></Route>
