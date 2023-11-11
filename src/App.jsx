@@ -7,6 +7,7 @@ import SignInScreen from './routes/SignInScreen'
 import Auth from './auth/Auth';
 import SignUpScreen from './routes/SignUpScreen';
 import { getCookie } from './cookie/cookie';
+import SolvedProblemScreen from './routes/SolvedProblemScreen';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -24,6 +25,8 @@ function App() {
         <Route path="/" element={isLoggedIn ? <HomeScreen /> : <SignInScreen />}></Route>
         <Route path="/auth" element={<Auth />}></Route>
         <Route path="/signup" element={<SignUpScreen />}></Route>
+        
+        <Route path="/test" element={<SolvedProblemScreen />}></Route>
       </Routes>
     </BrowserRouter>
   )
