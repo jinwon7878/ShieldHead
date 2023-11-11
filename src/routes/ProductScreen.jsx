@@ -1,7 +1,7 @@
 import React from 'react'
-
 import coffee2 from '../assets/images/coffee2.png'
 import styled from 'styled-components'
+import BottomTabLayout from './BottomTabLayout'
 
 const Container = styled.div`
   .productContainer {
@@ -11,7 +11,7 @@ const Container = styled.div`
     text-align: center;
   }
   .productHeader {
-      /* font-size: 48px; */
+      font-size: 48px;
       margin: 30px;
   }
   .pointSection {
@@ -26,7 +26,6 @@ const Container = styled.div`
   }
   .pointTitle {
       width: 50%;
-      /* padding-right: 30px; */
       border-right: 1px solid #ccc;
   }
   .pointValue {
@@ -38,7 +37,7 @@ const Container = styled.div`
       /* background-color: #ccc; */
   }
   .productImage{
-      width: 150px;
+      width: 300px;
       height: auto;
       margin: 0;
   }
@@ -47,7 +46,7 @@ const Container = styled.div`
       text-align: left;
       padding: 30px;
       margin-bottom: -30px;
-  }​
+  }
   .productBrand {
       font-size: 15px;
   }
@@ -57,9 +56,9 @@ const Container = styled.div`
   .buttonSection {
       width: 100%;
       align-items: center;
-  }​
+  }
   .productButton {
-      padding: 15px 30px 15px 30px;
+      padding: 15px 30px;
       margin-bottom: 10px;
       border: none;
       border-radius: 5px;
@@ -90,14 +89,15 @@ function ProductScreen() {
         <img src={coffee2} className='productImage' alt="coffee" />
       </div>
       <div className='productInfo'>
-        <h3 className="productBrand">메가MGC커피</h3>
-        <p className="productName">(ICE)아메리카노</p>
-        <p className="productPrice">2,000p</p>
+        <h3 className="productBrand">스타벅스</h3>
+        <p className="productName">아이스 카페 아메리카노 T</p>
+        <p className="productPrice">4,500p</p>
       </div> 
       <div className='buttonSection'>
         <button className="productButton">구매하기</button>
       </div>
     </div>
+    <BottomTabLayout></BottomTabLayout>
     </Container>
   )
 }

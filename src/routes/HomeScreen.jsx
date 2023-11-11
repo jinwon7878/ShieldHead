@@ -5,6 +5,7 @@ import axios from 'axios';
 import exImg from '../assets/images/ex.png';
 import styled from 'styled-components';
 import Button from "@mui/material/Button";
+import BottomTabLayout from './BottomTabLayout'
 
 const Container = styled.div`
   display: flex;
@@ -119,7 +120,7 @@ function HomeScreen() {
   return (
     <>
     {isUser && (
-      <Container>
+    <Container>
       <InnerFlexBox height="211px">ShieldHead</InnerFlexBox>
       <NewsBox height="393px">
         <NewsTextBox height="43px">뉴스</NewsTextBox>
@@ -133,6 +134,7 @@ function HomeScreen() {
       </InnerFlexBox>
 
       <MenuBox height="100px">홈 스토어 사람</MenuBox>
+      <BottomTabLayout></BottomTabLayout>
     </Container>
     )}
     </>

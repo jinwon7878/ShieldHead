@@ -5,18 +5,18 @@ import score from '../assets/images/score.png'
 import hexagon from '../assets/images/hexagon.png'
 
 import styled from 'styled-components'
+import BottomTabLayout from './BottomTabLayout'
 
 const Container = styled.div`
   .myPageContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: 'Arial', sans-serif;
     text-align: center;
   }
 
   .myPageHeader {
-    /* font-size: 48px; */
+    font-size: 48px;
     margin: 30px;
   }
 
@@ -26,12 +26,8 @@ const Container = styled.div`
     align-items: center;
   }
 
-  .profilePicture {
+  .profile {
     width: 130px;
-    height: 130px;
-    border-radius: 50%;
-    background-color: #ccc;
-    margin-bottom: 10px;
   }
 
   .userInfo {
@@ -62,10 +58,13 @@ const Container = styled.div`
   }
 
   .menuButton {
+    display: flex; 
+    align-items: center; 
+    justify-content: flex-start;
     width: 100%;
     padding: 10px;
     margin: 0;
-    background-color: #f0f0f0;
+    background-color: white;
     border: none;
     border-radius: 5px; 
     text-align: start;
@@ -80,20 +79,11 @@ const Container = styled.div`
   .menuText {
     text-align: center;
     align-items: center;
+    font-size: 15px;
   }
 
   .hexagon {
-    width: 200px;
-  }
-  
-  .navigation {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-    background-color: #fff;
-    padding: 10px 0;
+    width: 230px;
   }
 `
 
@@ -107,6 +97,7 @@ function MyPageScreen() {
       </header>
       <div className="profileSection">
         <div className="profilePicture">
+          <img src={profile} className="profile" alt="profile" />
         </div>
         <div className="userInfo">
           {/* 수정 필요 */}
@@ -116,18 +107,13 @@ function MyPageScreen() {
       </div>
       <button className='editButton'>Edit</button>
       <div className="menuSection">
-        <button className="menuButton"><img src={setting} className='menuImage' alt="setting" /> <span className='menuText'>환경설정</span></button>
+        {/* <button className="menuButton"><img src={setting} className='menuImage' alt="setting" /> <span className='menuText'>환경설정</span></button> */}
         <button className="menuButton"><img src={score} className='menuImage' alt="score" /> <span className='menuText'>육각형 점수</span> </button>
         <img src={hexagon} className='hexagon' alt="hexagon" />
         {/* 수정 필요 */}
-        <button className="menuButton"><img src={score} className='menuImage' alt="" /> <span className='menuText'>배지</span> </button>
+        {/* <button className="menuButton"><img src={score} className='menuImage' alt="" /> <span className='menuText'>배지</span> </button> */}
       </div>
-      <nav className="navigation">
-        {/* <a href="/home" className="navLink"><img src="" alt="" /></a>
-        <a href="/cart" className="navLink"><img src="" alt="" /></a>
-        <a href="/profile" className="navLink active"><img src="" alt="" /></a> */}
-      </nav>
-    
+      <BottomTabLayout></BottomTabLayout>
     </div>
     </Container>
   )
