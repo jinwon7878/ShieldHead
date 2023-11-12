@@ -3,6 +3,9 @@ import result from "../assets/images/result.png";
 import styled from "styled-components";
 import instagram from "../assets/images/instagram.svg";
 import arrow from "../assets/images/arrow.svg";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { getCookie, setCookie } from "../cookie/cookie";
 
 const Container = styled.div`
   display: flex;
@@ -103,7 +106,29 @@ const Home = styled.div`
 `;
 
 function SignUpFinalScreen() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const {name, age, gender, oList} = location.state;
+  const sti = "밝은 명량한"
+  const accessToken = getCookie('accessToken');
+
   const [resultMessage, setResultMessage] = useState("당신은 안전에 대해 잘 압니다"); // Add a state variable for the result message
+
+  const handleNavigateHome = async () => {
+    const res = await axios.post(
+      "http://localhost:8080/register",
+      {
+        "name": name,
+        "age": age,
+        "gender": gender,
+        "sti": sti,
+        "accessToken": accessToken
+      }
+    )
+    const userId = await res.data.id;
+    setCookie('userId', `${userId}`);
+    navigate('/');
+  }
 
   return (
     <Container>
@@ -130,7 +155,7 @@ function SignUpFinalScreen() {
           </Share>
           <Home>
             Home
-            <IconButton weidth="28px" height="28px" src={arrow} alt="Home" />
+            <IconButton type='button' onClick={handleNavigateHome} weidth="28px" height="28px" src={arrow} alt="Home" />
           </Home>
         </ShareHome>
       </Bottom>
