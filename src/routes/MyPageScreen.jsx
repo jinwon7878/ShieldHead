@@ -3,6 +3,7 @@ import profile from '../assets/images/profile.png'
 import setting from '../assets/images/setting.png'
 import score from '../assets/images/score.png'
 import hexagon from '../assets/images/hexagon.png'
+import user from '../assets/images/user.png'
 
 import styled from 'styled-components'
 import BottomTabLayout from './BottomTabLayout'
@@ -88,15 +89,24 @@ const Container = styled.div`
     width: 230px;
   }
 `
+const InnerFlexBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 48px;
+  margin: 1px; // 각 박스 간의 간격
+  width: 100%; // 박스의 너비
+  height: ${(props) => props.height}; // 박스의 높이
+  //background-color: #f0f0f0; // 박스의 배경 색상
+  font-family: "Orbitron", sans-serif;
+`;
 
 
 function MyPageScreen() {
   return (
     <Container>
     <div className="myPageContainer">
-      <header className="myPageHeader">
-        ShieldHead
-      </header>
+    <InnerFlexBox height="220px">ShieldHead</InnerFlexBox>
       <div className="profileSection">
         <div className="profilePicture">
           <img src={profile} className="profile" alt="profile" />
@@ -110,8 +120,8 @@ function MyPageScreen() {
       <button className='editButton'>Edit</button>
       <div className="menuSection">
         {/* <button className="menuButton"><img src={setting} className='menuImage' alt="setting" /> <span className='menuText'>환경설정</span></button> */}
-        <button className="menuButton"><img src={score} className='menuImage' alt="score" /> <span className='menuText'>육각형 점수</span> </button>
-        <img src={hexagon} className='hexagon' alt="hexagon" />
+        <button className="menuButton"><img src={score} className='menuImage' alt="score" /> <span className='menuText'>안전 MBTI</span> </button>
+        <img src={user} className='hexagon' alt="hexagon" />
         {/* 수정 필요 */}
         {/* <button className="menuButton"><img src={score} className='menuImage' alt="" /> <span className='menuText'>배지</span> </button> */}
       </div>

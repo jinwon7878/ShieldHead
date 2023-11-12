@@ -6,6 +6,9 @@ import arrow from "../assets/images/arrow.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { getCookie, setCookie } from "../cookie/cookie";
+import user from "../assets/images/user.png";
+
+
 
 const Container = styled.div`
   display: flex;
@@ -31,14 +34,23 @@ const InnerFlexBox = styled.div`
 
 const ResultBox = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: start;
   flex-direction: column;
   align-items: center;
-  margin: 0 10px;
+  margin-bottom: 10px;
   width: 65%; // 박스의 너비
   height: ${(props) => props.height}; // 박스의 높이
   //background-color: #f0f0f0; // 박스의 배경 색상
 `;
+
+const ExtraBox = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  aligh-items: center;
+  margin-top: -40px;
+  width: 65%;
+`
 
 const TextBox = styled.div`
   display: flex;
@@ -50,12 +62,32 @@ const TextBox = styled.div`
   width: 100%; // 박스의 너비
   height: ${(props) => props.height}; // 박스의 높이
   //background-color: #f0f0f0; // 박스의 배경 색상
+  text-align: center;
+  font-weight: bold;
 `;
+
+const TextBox2 = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  color: black;
+  font-family: "Noto Sans", sans-serif;
+  width: 100%; // 박스의 너비
+  height: ${(props) => props.height}; // 박스의 높이
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 10px;
+`
 
 const StyledImage = styled.img`
   max-width: 100%; // 이미지의 최대 너비
   max-height: 100%; // 이미지의 최대 높이
-  border-radius: 8px; // 이미지 모서리 둥글게
+  border-radius: 10px; // 이미지 모서리 둥글게
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  margin: 25px;
+  // border: 5px solid #ccc; /* 테두리 굵기와 색상 */
+  border: 5px solid #fff;
 `;
 
 const Bottom = styled.div`
@@ -109,11 +141,11 @@ function SignUpFinalScreen() {
   const navigate = useNavigate();
   const location = useLocation();
   const {name, age, gender, oList} = location.state;
-  const sti = "밝은 명량한"
   const accessToken = getCookie('accessToken');
 
-  const [resultMessage, setResultMessage] = useState("당신은 안전에 대해 잘 압니다"); // Add a state variable for the result message
-
+  const [resultMessage, setResultMessage] = useState("통제불능의 안전불감주의자"); // Add a state variable for the result message
+  const [extraMessage, setExtraMessage] = useState("당신은 어떠한 안전 지침도 따르지 않는 완전히 자제할 수 없는 사람입니다. 이미 병원과 많이 친하신 분이며, 대한민국 국민의 평균 수명을 깎아먹는 주범이십니다.");
+  
   const handleNavigateHome = async () => {
     const res = await axios.post(
       "http://localhost:8080/register",
@@ -121,7 +153,7 @@ function SignUpFinalScreen() {
         "name": name,
         "age": age,
         "gender": gender,
-        "sti": sti,
+        "sti": resultMessage,
         "accessToken": accessToken
       }
     )
@@ -134,13 +166,17 @@ function SignUpFinalScreen() {
     <Container>
       <InnerFlexBox height="220px">ShieldHead</InnerFlexBox>
 
+      <ResultBox height="300px">
+        <StyledImage src={user} alt="character"></StyledImage>
+      </ResultBox>
+
       <ResultBox height="133px">
         <TextBox height="43px">{resultMessage}</TextBox>
       </ResultBox>
 
-      <ResultBox height="300px">
-        <StyledImage src={result} alt="Instagram"></StyledImage>
-      </ResultBox>
+      <ExtraBox height="15px">
+        <TextBox2 height="15px">{extraMessage}</TextBox2>
+      </ExtraBox>
 
       <Bottom height="200px">
         <ShareHome>
@@ -155,7 +191,7 @@ function SignUpFinalScreen() {
           </Share>
           <Home>
             Home
-            <IconButton type='button' onClick={handleNavigateHome} weidth="28px" height="28px" src={arrow} alt="Home" />
+            <IconButton onClick={handleNavigateHome} weidth="28px" height="28px" src={arrow} alt="Home" />
           </Home>
         </ShareHome>
       </Bottom>

@@ -32,10 +32,12 @@ const QuestionCard = styled.div`
   align-items: center;
   font-size: 16px;
   margin: 20px; // 각 박스 간의 간격
+  padding: 12px;
   width: 100%; // 박스의 너비
   height: ${(props) => props.height}; // 박스의 높이
   background-color: white; // 박스의 배경 색상
   font-family: "Orbitron", sans-serif;
+  font-weight: 600;
   border-radius: 20px;
   box-shadow: 0px 20px 50px -10px rgba(0, 0, 0, 0.15);
 `;
@@ -130,10 +132,12 @@ function SignUpProblemScreen() {
 
   const OXCard = styled(Ocard)`
     background-color: ${selectedOption === 1 ? "#bde0fe" : "white"};
+    border: ${selectedOption === 1 ? "2px solid #263775" : "none"};
   `;
 
   const XXCard = styled(Xcard)`
     background-color: ${selectedOption === 2 ? "#bde0fe" : "white"};
+    border: ${selectedOption === 2 ? "2px solid #263775" : "none"};
   `;
 
   const handleNextClick = () => {

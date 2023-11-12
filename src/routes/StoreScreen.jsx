@@ -91,13 +91,23 @@ const Container = styled.div`
   }
 `
 
+const InnerFlexBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 48px;
+  margin: 1px; // 각 박스 간의 간격
+  width: 100%; // 박스의 너비
+  height: ${(props) => props.height}; // 박스의 높이
+  //background-color: #f0f0f0; // 박스의 배경 색상
+  font-family: "Orbitron", sans-serif;
+`;
+
 function StoreScreen() {
   return (
     <Container>
     <div className='storeScreenContainer'>
-      <header className="storeHeader">
-        ShieldHead
-      </header>
+      <InnerFlexBox height="220px">ShieldHead</InnerFlexBox>
       <div className="pointSection">
         <div className="pointTitle">
           Point

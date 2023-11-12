@@ -2,7 +2,7 @@ import { React, useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 import { getCookie, setCookie } from "../cookie/cookie";
 import axios from 'axios';
-import exImg from '../assets/images/ex.png';
+import article1 from '../assets/images/article1.png'
 import styled from 'styled-components';
 import Button from "@mui/material/Button";
 import BottomTabLayout from './BottomTabLayout'
@@ -129,7 +129,9 @@ function HomeScreen() {
       <NewsBox height="393px">
         <NewsTextBox height="43px">뉴스</NewsTextBox>
         <InnerFlexBox height="350px">
-          <StyledImage src={exImg} alt="이미지" />
+          <a href='https://www.jejusori.net/news/articleView.html?idxno=420954'>
+            <StyledImage src={article1} alt="이미지" />
+          </a>
         </InnerFlexBox>
       </NewsBox>
 
