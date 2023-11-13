@@ -2,7 +2,7 @@ import { React, useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 import { getCookie, setCookie } from "../cookie/cookie";
 import axios from 'axios';
-import article1 from '../assets/images/article1.png'
+import news from '../assets/images/news.png'
 import styled from 'styled-components';
 import Button from "@mui/material/Button";
 import BottomTabLayout from './BottomTabLayout'
@@ -52,8 +52,10 @@ const NewsTextBox = styled.div`
 `;
 
 const StyledImage = styled.img`
-  max-width: 100%; // 이미지의 최대 너비
-  max-height: 100%; // 이미지의 최대 높이
+  // max-width: 100%; // 이미지의 최대 너비
+  // max-height: 100%; // 이미지의 최대 높이
+  width: 390px;
+  height: 400px;
   border-radius: 8px; // 이미지 모서리 둥글게
 `;
 
@@ -127,10 +129,9 @@ function HomeScreen() {
     <Container>
       <InnerFlexBox height="211px">ShieldHead</InnerFlexBox>
       <NewsBox height="393px">
-        <NewsTextBox height="43px">뉴스</NewsTextBox>
         <InnerFlexBox height="350px">
           <a href='https://www.jejusori.net/news/articleView.html?idxno=420954'>
-            <StyledImage src={article1} alt="이미지" />
+            <StyledImage src={news} alt="이미지" />
           </a>
         </InnerFlexBox>
       </NewsBox>

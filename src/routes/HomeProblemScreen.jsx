@@ -106,6 +106,7 @@ const NextButton = styled.div`
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 function HomeProblemScreen() {
+  const [order, setOrder] = useState(0);
   const [question, setQuestion] = useState(null);
   const [answer, setAnswer] = useState(null);
   const [items, setItems] = useState([]);
@@ -121,12 +122,13 @@ function HomeProblemScreen() {
   
   const getQuestion = async () => {
     const response = await axios.get(
-      "http://localhost:8080/quiz",
-      {category: '교통'}
+      "http://localhost:8080/quiz?category=교통",
     )
-    setQuestion(response.data.problem);
-    setAnswer(response.data.answer);
-    setItems(response.data.item);
+    if (order<3){
+      setQuestion(response.data[order].problem);
+      setAnswer(response.data[order].answer);
+      setItems(response.data[order].item);
+    }
   }
 
   const OXCard = styled(Ocard)`
@@ -145,17 +147,18 @@ function HomeProblemScreen() {
       plus = true;
     } else {plus = false;}
     setSelectedList([...selectedList, plus]);
+    setOrder(o=>o+1);
     console.log("Next button clicked, selected option:", selectedOption);
-    getQuestion();
   };
 
   useEffect(()=>{
-    if (selectedList.length === 3) {
-      navigate('solvedProblem', {
-        state: { ...selectedList }
+    if (order === 3) {
+      navigate('/solvedProblem', {
+        state: [...selectedList]
       });
     }
-  }, [selectedList]);
+    getQuestion();
+  }, [navigate, order]);
 
   return (
     <Container>

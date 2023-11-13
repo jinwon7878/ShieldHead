@@ -137,9 +137,12 @@ function SolvedProblemScreen() {
   const circleStatus = location.state; //ex [true false false]
   let points = 0;
   let score = 0;
-  circleStatus.map((b, i) => {
-    if (b) {points += 1;}
-  });
+  console.log(circleStatus);
+  for (let i=0; i<3; i++) {
+    if (circleStatus[i]) {
+      points += 1;
+    }
+  }
   switch (points){
     case 0:
       score = "0";
@@ -159,9 +162,9 @@ function SolvedProblemScreen() {
 
   const getOriginPoints = async () => {
     const userId = getCookie('userId');
+    console.log(userId);
     const res = await axios.get(
-      "http://local:8080/users",
-      {id: userId}
+      `http://localhost:8080/users/${userId}`
     )
     const originPoints = await res.data.point;
     let n = originPoints + points;
@@ -185,15 +188,15 @@ function SolvedProblemScreen() {
 
   const setUserPoints = async () => {
     const userId = getCookie('userId');
-    const res = await axios.get(
-      `http://local:8080/users/${userId}`,
+    const res = await axios.post(
+      `http://localhost:8080/users/${userId}/point`,
       {point: points}
-    )
+    ) 
   }
 
   const navigate = useNavigate();
-  const handleClickHome = async () => {
-    await setUserPoints();
+  const handleClickHome = () => {
+    setUserPoints();
     navigate('/');
   }
 
